@@ -263,13 +263,11 @@ export default function FooterSection() {
                     <ScrollReveal animation="fadeUp" delay={0.2}>
                     <h4 className="footer-col">Company</h4>
                        <ul role="list" className="footer-links mt-4">
-                       {navigation.support.map( (item) =>(
-                        ))}
+                       {navigation.company.map( (item) =>(
                        <li key={item.name}>
                        <a href={item.href}>{item.name}</a>
-                        
                        </li>
-                        
+                         ))}
                        </ul> 
                     </ScrollReveal>
                     
