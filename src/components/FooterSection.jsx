@@ -76,40 +76,55 @@
 //       - Copyright line using {currentYear}
 
 /* --- YOUR COMPONENT CODE GOES HERE --- */
-
 import { useEffect, useRef } from "react";
+
 import L from "leaflet";
+
 import "leaflet/dist/leaflet.css";
-import Sepator from "./ui/Separator";
+
+import Separator from "./ui/Separator";
+
 import ScrollReveal from "./ui/ScrollReveal";
+
 import logo from "../assets/Beans_logo.png";
 
 const navigation = {
     shop: [
         { name: "All Coffee", href: "#shop" },
+
         { name: "Single Origin", href: "#shop" },
+
         { name: "Blends", href: "#shop" },
+
         { name: "Subscriptions", href: "#" }
     ],
 
     company: [
         { name: "About", href: "#about" },
+
         { name: "Our Roastery", href: "#about" },
+
         { name: "Careers", href: "#" },
+
         { name: "Press", href: "#" }
     ],
 
     support: [
         { name: "Contact Us", href: "#contact" },
+
         { name: "Shipping & Returns", href: "#" },
+
         { name: "FAQ", href: "#" },
+
         { name: "Wholesale", href: "#contact" }
     ],
 
     social: [
         {
             name: "Facebook",
+
             href: "#",
+
             icon: (props) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                     <path
@@ -123,7 +138,9 @@ const navigation = {
 
         {
             name: "Instagram",
+
             href: "#",
+
             icon: (props) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                     <path
@@ -137,7 +154,9 @@ const navigation = {
 
         {
             name: "X",
+
             href: "#",
+
             icon: (props) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                     <path d="M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z" />
@@ -149,52 +168,72 @@ const navigation = {
 
 const currentYear = new Date().getFullYear();
 
-/* Leaflet map component */
+/* ── Leaflet map component ── */
+
 function LocationMap() {
     const mapRef = useRef(null);
+
     const mapInstance = useRef(null);
 
     useEffect(() => {
         if (mapInstance.current || !mapRef.current) return;
 
         const lat = 39.7386;
+
         const lng = -104.3256;
 
         const map = L.map(mapRef.current, {
             center: [lat, lng],
+
             zoom: 14,
-            scrollWhellZoom: false,
+
+            scrollWheelZoom: false,
+
             zoomControl: true,
-            attributeControl: true
+
+            attributionControl: true
         });
+
+        // Use a warm-toned tile layer
 
         L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
             attribution:
                 '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+
             subdomains: "abcd",
+
             maxZoom: 19
         }).addTo(map);
 
-        // Customer marker
+        // Custom marker
+
         const icon = L.divIcon({
             className: "leaflet-map-pin",
+
             html: `<div style="
+
 width:36px;height:36px;border-radius:50%;
 background:linear-gradient(135deg,var(--amber),var(--amber-dark));
 display:flex;align-items:center;justify-content:center;
 box-shadow:0 4px 14px rgba(212,146,42,0.5);
 border:3px solid var(--cream);
 "><svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5'><path d='M15 10.5a3 3 0 11-6 0 3 3 0 016 0z'/><path d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'/></svg></div>`,
+
             iconSize: [36, 36],
+
             iconAnchor: [18, 36],
+
             popupAnchor: [0, -38]
         });
 
         L.marker([lat, lng], { icon })
+
             .addTo(map)
+
             .bindPopup(
                 `<div style="font-family:var(--font-body);text-align:center;padding:4px 0;">
-<strong style="font-size:15px;color:#1e1714;">Beans Place</strong><br/>
+
+ <strong style="font-size:15px;color:#1e1714;">Beans Place</strong><br/>
 <span style="font-size:13px;color:#6b5c4f;">Strasburg, CO 80136</span><br/>
 <a href="https://maps.google.com/?q=Beans+Place+Strasburg+CO" target="_blank" rel="noopener noreferrer"
 style="font-size:12px;color:#d4922a;font-weight:600;">Get Directions →</a>
@@ -205,25 +244,28 @@ style="font-size:12px;color:#d4922a;font-weight:600;">Get Directions →</a>
 
         return () => {
             map.remove();
+
             mapInstance.current = null;
         };
-    });
+    }, []);
 
     return (
-        <div ref={mapRef} className="footer-map" style={{ width: "100%", overflow: "hidden " }} />
+        <div ref={mapRef} className="footer-map" style={{ width: "100%", overflow: "hidden" }} />
     );
 }
 
 export default function FooterSection() {
     return (
         <footer className="footer">
-            <div className="mx-auto max-w-7x1 px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32 2x1:max-w[1600px}">
-                {/* MAP */}
+            <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32 2xl:max-w-[1600px]">
+                {/* Map */}
+
                 <ScrollReveal animation="fadeUp">
                     <LocationMap />
                 </ScrollReveal>
 
-                {/* Footer Column*/}
+                {/* Footer columns */}
+
                 <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
                     <ScrollReveal animation="fadeUp" className="col-span-2 md:col-span-1 space-y-4">
                         <img
@@ -231,16 +273,18 @@ export default function FooterSection() {
                             src={logo}
                             className="h-24 w-auto place-self-center md:place-self-auto"
                         />
-                        <p className="footer-description justify-self-center text-center md:justtify-self-auto md:text-left">
-                            Premium coffeee neas, roasted to ordere and shipped fresh. From out
-                            roastery to your cu since 2012.
+
+                        <p className="footer-description justify-self-center text-center md:justify-self-auto md:text-left">
+                            Premium coffee beans, roasted to order and shipped fresh. From our
+                            roastery to your cup since 2012.
                         </p>
+
                         <div className="flex gap-x-6 justify-self-center md:justify-self-auto">
                             {navigation.social.map((item) => (
                                 <a
                                     key={item.name}
                                     href={item.href}
-                                    classNmae="text-white/70 transition-colors hover:text-[var(--amber)] duration-200"
+                                    className="text-white/70 transition-colors hover:text-[var(--amber)] duration-200"
                                     aria-label={item.name}>
                                     <item.icon aria-hidden="true" className="size-6" />
                                 </a>
@@ -248,8 +292,8 @@ export default function FooterSection() {
                         </div>
                     </ScrollReveal>
 
-                    <ScrollReveal anitmation="fadeUp" delay={0.1}>
-                        <h4 classNmae="footer-col">Shop</h4>
+                    <ScrollReveal animation="fadeUp" delay={0.1}>
+                        <h4 className="footer-col">Shop</h4>
 
                         <ul role="list" className="footer-links mt-4">
                             {navigation.shop.map((item) => (
@@ -259,39 +303,36 @@ export default function FooterSection() {
                             ))}
                         </ul>
                     </ScrollReveal>
-                    
+
                     <ScrollReveal animation="fadeUp" delay={0.2}>
-                    <h4 className="footer-col">Company</h4>
-                       <ul role="list" className="footer-links mt-4">
-                       {navigation.company.map( (item) =>(
-                       <li key={item.name}>
-                       <a href={item.href}>{item.name}</a>
-                       </li>
-                         ))}
-                       </ul> 
+                        <h4 className="footer-col">Company</h4>
+
+                        <ul role="list" className="footer-links mt-4">
+                            {navigation.company.map((item) => (
+                                <li key={item.name}>
+                                    <a href={item.href}>{item.name}</a>
+                                </li>
+                            ))}
+                        </ul>
                     </ScrollReveal>
-                    
-                    
+
                     <ScrollReveal animation="fadeUp" delay={0.3}>
-                    <h4 className="footer-col">Support</h4>
-                    <ul role="list" className="footer-links mt-4">
-                        {navigation.support.map( (item) => (
-                            <li ley={item.name}>
-                            <a href={item.href}>{item.name}</a>
-                                
-                            </li>
-                        ))}
-                    </ul>
-                        
+                        <h4 className="footer-col">Support</h4>
+
+                        <ul role="list" className="footer-links mt-4">
+                            {navigation.support.map((item) => (
+                                <li key={item.name}>
+                                    <a href={item.href}>{item.name}</a>
+                                </li>
+                            ))}
+                        </ul>
                     </ScrollReveal>
                 </div>
-                
+
                 <Separator className="mt-16 mb-6" />
-                
+
                 <div className="footer-bottom">
-                    <p>
-                        &copy; {currentYear} The Beans Place, LLC. All righrs reserved.
-                    </p>
+                    <p>&copy; {currentYear} The Beans Place, LLC. All rights reserved.</p>
                 </div>
             </div>
         </footer>
