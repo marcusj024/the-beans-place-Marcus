@@ -97,6 +97,7 @@ import RibbonTicker from "./components/RibbonTicker.jsx";
 import FeaturesSection from "./components/FeaturesSection.jsx";
 import ProductShowcase from "./components/ProductShowcase.jsx" 
 import CtaSection from "./components/CtaSection.jsx";
+import AboutSection from "./components/AboutSection.jsx";
 
 export default function App() {
     return (
@@ -129,6 +130,11 @@ export default function App() {
             {/* CTA */}
             <section className="bg-cta">
             <CtaSection />
+            
+            <section className="bg-cta" id="shop">
+            <AboutSection />
+                
+            </section>
                 
             </section>
             {/* FOOTER */}
